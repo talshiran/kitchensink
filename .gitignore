@@ -3,3 +3,7 @@ uml/
 .vscode/
 CMakeFiles/
 CMakeCache.txt
+googletest/
+build/
+bin/
+lib/

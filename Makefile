@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/tal/Documents/kitchensink
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -110,14 +110,75 @@ depend:
 	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named hello_exec
+
+# Build rule for target.
+hello_exec: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hello_exec
+.PHONY : hello_exec
+
+# fast build rule for target.
+hello_exec/fast:
+	$(MAKE) -f CMakeFiles/hello_exec.dir/build.make CMakeFiles/hello_exec.dir/build
+.PHONY : hello_exec/fast
+
+#=============================================================================
+# Target rules for targets named hello.cpp
+
+# Build rule for target.
+hello.cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hello.cpp
+.PHONY : hello.cpp
+
+# fast build rule for target.
+hello.cpp/fast:
+	$(MAKE) -f CMakeFiles/hello.cpp.dir/build.make CMakeFiles/hello.cpp.dir/build
+.PHONY : hello.cpp/fast
+
+hello.o: hello.cpp.o
+
+.PHONY : hello.o
+
+# target to build an object file
+hello.cpp.o:
+	$(MAKE) -f CMakeFiles/hello_exec.dir/build.make CMakeFiles/hello_exec.dir/hello.cpp.o
+	$(MAKE) -f CMakeFiles/hello.cpp.dir/build.make CMakeFiles/hello.cpp.dir/hello.cpp.o
+.PHONY : hello.cpp.o
+
+hello.i: hello.cpp.i
+
+.PHONY : hello.i
+
+# target to preprocess a source file
+hello.cpp.i:
+	$(MAKE) -f CMakeFiles/hello_exec.dir/build.make CMakeFiles/hello_exec.dir/hello.cpp.i
+	$(MAKE) -f CMakeFiles/hello.cpp.dir/build.make CMakeFiles/hello.cpp.dir/hello.cpp.i
+.PHONY : hello.cpp.i
+
+hello.s: hello.cpp.s
+
+.PHONY : hello.s
+
+# target to generate assembly for a file
+hello.cpp.s:
+	$(MAKE) -f CMakeFiles/hello_exec.dir/build.make CMakeFiles/hello_exec.dir/hello.cpp.s
+	$(MAKE) -f CMakeFiles/hello.cpp.dir/build.make CMakeFiles/hello.cpp.dir/hello.cpp.s
+.PHONY : hello.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... hello_exec"
+	@echo "... edit_cache"
+	@echo "... hello.cpp"
+	@echo "... hello.o"
+	@echo "... hello.i"
+	@echo "... hello.s"
 .PHONY : help
 
 
